@@ -1,9 +1,9 @@
-name: Cluster API
+name: WeFact API Client
 
 on: [push]
 
 jobs:
-    cluster-api-tests:
+    wefact-api-tests:
         runs-on: ubuntu-latest
 
         steps:
