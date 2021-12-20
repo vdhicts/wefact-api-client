@@ -31,4 +31,15 @@ class WeFactRequest implements RequestContract
     {
         return $this->params;
     }
+
+    public function getRequestData(): array
+    {
+        return array_merge(
+            [
+                'controller' => $this->controller,
+                'action' => $this->action,
+            ],
+            $this->params
+        );
+    }
 }
