@@ -4,7 +4,7 @@ Easy WeFact API client
 
 ## Requirements
 
-This package requires at least PHP 7.4 and uses Guzzle.
+This package requires at least PHP 7.4.
 
 ## Installation
 
@@ -22,70 +22,90 @@ This package is just an easy client for using the WeFact API. Please refer to th
 ### Getting started
 
 ```php
-// Initialize the client
-$client = new \Vdhicts\WeFact\WeFactClient($apiKey);
+use Vdhicts\WeFact\WeFact;
+use Vdhicts\WeFact\WeFactRequest;
+use Vdhicts\WeFact\Enums\WeFactController;
 
-// Prepare the request
-$request = new \Vdhicts\WeFact\WeFactRequest('creditor', 'list');
+// Initialize the client
+$client = new WeFact($apiKey);
 
 // Perform the request
-$response = $client->perform($request);
+$request = new WeFactRequest(WeFactController::CREDITOR, 'list');
+$response = $client->request($request);
 
-if ($response->isSuccess()) {
-    $response->getData('creditors');
+if ($response->ok()) {
+    $response->json('creditors');
 }
 ```
 
 Or if you need to provide extra parameters (i.e. for a 'add' request):
 
 ```php
-$request = new \Vdhicts\WeFact\WeFactRequest('creditor', 'add', [
+$request = new WeFactRequest(WeFactController::CREDITOR, 'add', [
     'CompanyName' => 'Vdhicts',
 ]);
+$response = $client->request($request);
 ```
 
-The `getData` method is able to use the dot notation. For example:
+### Extending the client
+
+You can extend the client and implement your own endpoints:
 
 ```php
-$request = new \Vdhicts\WeFact\WeFactRequest('creditor', 'show', ['CreditorCode' => 'CD50000']);
-$response = $client->perform($request);
-..
-$response->getData('creditor.CompanyName');
+use Vdhicts\WeFact\Enums\WeFactController;
+use Vdhicts\WeFact\WeFact;
+use Vdhicts\WeFact\WeFactRequest;
+
+class Debtor extends WeFact 
+{
+    public function show(string $debtorCode): Response
+    {
+        $request = new WeFactRequest(WeFactController::DEBTOR, 'show', [
+            'DebtorCode' => $debtorCode,
+        ]);
+    
+        return $this->$request($request);
+    }    
+}
 ```
 
 ### Handling errors
 
-When an error occurs, a `WeFactResponse` object is still returned. The error might be provided by WeFact or from the 
-client but will always be available in the data with the `errors` key.
+A `Response` object will always be returned. See
+[Error handling](https://laravel.com/docs/8.x/http-client#error-handling) of the Http Client.
 
 ```php
-$request = new \Vdhicts\WeFact\WeFactRequest('creditor', 'lol');
-$response = $client->perform($request);
-
-if (!$response->isSuccess()) {
-    var_dump($response->getData('errors'));
+if ($response->failed()) {
+    var_dump($response->serverError());
 }
 ```
 
-Will show:
+### Laravel
+
+This package can be easily used in any Laravel application. I would suggest adding your credentials to the `.env` file
+of the project:
 
 ```
-array(1) {
-    [0]=>
-        string(14) "Invalid action"
-    }
-}
+WEFACT_API_KEY=apikey
 ```
 
-## Tests
+Next create a config file `wefact.php` in `/config`:
 
-Unit tests are available in the `tests` folder. Run with:
+```php
+<?php
 
-`composer test`
+return [
+    'api_key' => env('WEFACT_API_KEY'),
+];
+```
 
-When you want a code coverage report which will be generated in the `build/report` folder. Run with:
+Then initialize the client with the API key:
 
-`composer test-coverage`
+```php
+$client = new \Vdhicts\WeFact\WeFact(config('wefact.api_key'));
+```
+
+In the future I might make a Laravel specific package which uses this package.
 
 ## Contribution
 
