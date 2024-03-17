@@ -7,7 +7,9 @@ use Vdhicts\WeFact\Contracts\RequestContract;
 class WeFactRequest implements RequestContract
 {
     private string $controller;
+
     private string $action;
+
     private array $params;
 
     public function __construct(string $controller, string $action, array $params = [])
