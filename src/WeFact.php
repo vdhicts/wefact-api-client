@@ -10,9 +10,12 @@ use Vdhicts\WeFact\Contracts\RequestContract;
 class WeFact extends Factory
 {
     private const API_URL = 'https://api.mijnwefact.nl/v2/';
+
     private const TIMEOUT = 180;
-    private const VERSION = '2.0.0';
-    private const USER_AGENT = 'vdhicts-wefact-api-client/' . self::VERSION;
+
+    private const VERSION = '4.0.0';
+
+    private const USER_AGENT = 'vdhicts-wefact-api-client/'.self::VERSION;
 
     private string $apiKey;
 
