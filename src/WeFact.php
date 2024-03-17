@@ -13,7 +13,7 @@ class WeFact extends Factory
 
     private const TIMEOUT = 180;
 
-    private const VERSION = '4.0.0';
+    private const VERSION = '5.0.0';
 
     private const USER_AGENT = 'vdhicts-wefact-api-client/'.self::VERSION;
 
