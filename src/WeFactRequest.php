@@ -41,7 +41,7 @@ class WeFactRequest implements RequestContract
                 'controller' => $this->controller,
                 'action' => $this->action,
             ],
-            $this->params
+            $this->params,
         );
     }
 }
