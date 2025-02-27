@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Please note this changelog affects this package and not the 
 WeFact API. See the changelog of the [WeFact API](https://www.wefact.nl/api/changelog/) for detailed information.
 
+## [6.0.0]
+
+### Added
+
+- Add support for Laravel 12.
+
+### Removed
+
+- Drop support for PHP versions lower than 8.2.
+
 ## [5.0.0]
 
 ### Added

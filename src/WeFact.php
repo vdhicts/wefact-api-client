@@ -13,9 +13,9 @@ class WeFact extends Factory
 
     private const TIMEOUT = 180;
 
-    private const VERSION = '5.0.0';
+    private const VERSION = '6.0.0';
 
-    private const USER_AGENT = 'vdhicts-wefact-api-client/'.self::VERSION;
+    private const USER_AGENT = 'vdhicts-wefact-api-client/' . self::VERSION;
 
     private string $apiKey;
 
@@ -31,7 +31,7 @@ class WeFact extends Factory
         return $this
             ->post(self::API_URL, array_merge(
                 ['api_key' => $this->apiKey],
-                $request->getRequestData()
+                $request->getRequestData(),
             ));
     }
 
