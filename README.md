@@ -4,7 +4,7 @@ Easy WeFact API client
 
 ## Requirements
 
-This package requires at least PHP 8.1.
+This package requires at least PHP 8.2.
 
 ## Installation
 
@@ -71,8 +71,7 @@ class Debtor extends WeFact
 
 ### Handling errors
 
-A `Response` object will always be returned. See
-[Error handling](https://laravel.com/docs/8.x/http-client#error-handling) of the Http Client.
+A `Response` object will always be returned. See [Error handling](https://laravel.com/docs/8.x/http-client#error-handling) of the Http Client.
 
 ```php
 if ($response->failed()) {
@@ -114,8 +113,8 @@ In exchange, you will be credited as contributor on this page.
 
 ## Security
 
-If you discover any security related issues in this or other packages of Vdhicts, please email info@vdhicts.nl instead
-of using the issue tracker.
+If you discover any security related issues in this or other packages of Vdhicts, please email security@vdhicts.nl 
+instead of using the issue tracker.
 
 ## Support
 
@@ -125,8 +124,3 @@ problem with this client or has a question about it, feel free to open an issue 
 ## License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
-
-## About Vdhicts
-
-[Vdhicts](https://www.vdhicts.nl) is the name of my personal company for which I work as freelancer. Vdhicts develops
-and implements IT solutions for businesses and educational institutions.

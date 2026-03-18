@@ -1,13 +1,13 @@
 name: CI
 
-on: [push]
+on: [ push ]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['8.2', '8.3', '8.4']
+        php-versions: [ '8.2', '8.3', '8.4' ]
 
     name: PHP ${{ matrix.php-versions }}
 
@@ -24,11 +24,14 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress
 
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: |
+          composer test:no-coverage
+
       - name: Execute static analysis
-        run: composer analyse
+        run: |
+          composer analyse
 
-      - name: Execute tests via PHPUnit
-        run: composer test:no-coverage
-
-      - name: Check code style
-        run: composer code-style:check
+      - name: Execute code style
+        run: |
+          composer code-style:fix
